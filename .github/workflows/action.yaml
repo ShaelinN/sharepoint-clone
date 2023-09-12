@@ -1,7 +1,6 @@
 on:
-    push:
-        branches:
-        - 'notmain'
+    schedule:
+        - cron: '*/5 * * * *'
 jobs:
     pull_sharepoint:
         runs-on: ubuntu-latest
