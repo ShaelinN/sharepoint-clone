@@ -22,7 +22,6 @@ jobs:
             working-directory: sharepoint-clone/.github/workflows/node/src 
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-
                 APPLICATION_ID: "00000003-0000-0ff1-ce00-000000000000"
                 CLIENT_ID: "06ae837f-6112-4904-ab69-54aa4cc0b7cc"
                 CLIENT_SECRET: "7iNk6htDsKUxFP20LhswmvfsPiM1TcpJYaqlUfTT6bg="
