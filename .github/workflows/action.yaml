@@ -32,7 +32,7 @@ jobs:
                 TENANT_ID: "cccbf502-6b91-40d6-be02-5ffa0eb711d6"
                 TENANT_NAME: "bbdza"
             run: |
-                echo "node Main.js" 
+                node Main.js 
 
         -   name: Commit and Push Changes
             working-directory: sharepoint-clone
