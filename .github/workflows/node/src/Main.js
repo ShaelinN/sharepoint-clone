@@ -26,7 +26,7 @@ async function main() {
     
             if (filesInDir.length === 0) {
                 console.log(`Copying empty directory ${dir} to ${localDir}`)
-                //fs.mkdirSync(localDir, {recursive: true})
+                fs.mkdirSync(localDir, {recursive: true})
             } else {
                 for(j in filesInDir) {
                     filePath = filesInDir[j]
