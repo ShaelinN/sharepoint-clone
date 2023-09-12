@@ -1,0 +1,22 @@
+on: 
+    schedule:
+    -   cron: "0 0 * * *"
+
+jobs:
+    pull_sharepoint:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Checkout this repo
+            uses: actions/checkout@v3
+
+        -   name: Pull from Sharepoint
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+                CLIENT_ID: ""
+                CLIENT_SECRET: ""
+            run: |
+                node main.js
+        -   name: Push to repo
+            uses: ad-m/github-push-action@main
+            with:
+                github_token: ${{ secrets.GITHUB_TOKEN}}

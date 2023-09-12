@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "node-sp-auth": "^3.0.7"
+  },
+  "dependencies": {
+    "sp-download": "^2.0.0"
+  }
+}
