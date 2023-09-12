@@ -1,7 +1,7 @@
 on:
     push:
         branches:
-        - 'main'
+        - 'notmain'
 jobs:
     pull_sharepoint:
         runs-on: ubuntu-latest
@@ -35,7 +35,10 @@ jobs:
             run: |
                 node Main.js 
 
-        -   name: Push to repo
-            uses: ad-m/github-push-action@main
-            with:
-                github_token: ${{ secrets.GITHUB_TOKEN}}
+        -   name: Commit and Push Changes
+            run: |
+                git config --global user.email "actions@github.com"
+                git config --global user.name "GitHub Actions"
+                git add .
+                git commit -m "Update files"
+                git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
