@@ -3,7 +3,6 @@ const listDirectoriesRecursive = require("./ListDirectoriesRecursive")
 const listFiles = require("./ListFiles")
 const downloadFile = require("./DownloadFile")
 const refreshAccessToken = require('./RefreshAccessToken')
-const fs = require("fs")
 const initConfig = require("./Configuration")
 
 async function main() {
@@ -24,22 +23,19 @@ async function main() {
             cut = path.join("/sites", config.siteName, config.sourceRootDir)
             localDir = path.join(config.destinationRootDir, dir.substring(cut.length + 1))
     
-            if (filesInDir.length === 0) {
-                console.log(`Copying empty directory ${dir} to ${localDir}`)
-                fs.mkdirSync(localDir, {recursive: true})
-            } else {
+            if (filesInDir.length > 0) {
                 for(j in filesInDir) {
                     filePath = filesInDir[j]
                     fileName = filePath.substring(dir.length + 1)
                     await downloadFile(filePath, path.join(localDir, fileName), config)
                 }
+            } else {
+                console.log(`No downloads from empty directory ${dir}`)
             }
         }
     } catch (error) {
         console.error(error)
     }
-
-
 }
 
 main()
