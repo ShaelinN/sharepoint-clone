@@ -1,47 +1,21 @@
-const fs = require("fs")
+const env = process.env
 
 /**
- * initialize a config object based on a json file passed in
- * @param {string} configFilePath 
+ * Initialize a config object based on environment variables
+ * @returns config object
  */
-async function initConfig(configFilePath) {
-    try {
-        const configFileContents = fs.readFileSync(configFilePath).toString()
-        const configData = await JSON.parse(configFileContents)
-        if (ensureConfigFields(configData)) {
-            return configData
-        }
-    } catch (error) {
-        console.log(`Error while loading config file`)
-        console.error(error)
+async function initConfig() {
+    return {
+        applicationId: env.APPLICATION_ID,
+        clientId: env.CLIENT_ID,
+        clientSecret: env.CLIENT_SECRET,
+        destinationRootDir: env.DESTINATION_ROOT_DIR,
+        refreshToken: env.REFRESH_TOKEN,
+        siteName: env.SITE_NAME,
+        sourceRootDir: env.SOURCE_ROOT_DIR,
+        tenantID: env.TENANT_ID,
+        tenantName: env.TENANT_NAME
     }
-}
-/**
- * Check that the config object has all the fields needed to successfully run this job
- * @param {object} configObject 
- */
-function ensureConfigFields(configObject) {
-    necessaryFields = [
-        "tenantName",
-        "tenantID",
-        "clientId",
-        "clientSecret",
-        "refreshToken",
-        "applicationId",
-        "siteName",
-        "sourceRootDir",
-        "destinationRootDir",
-    ]
-
-    for (i in necessaryFields) {
-        if (necessaryFields[i] in configObject) {
-            continue
-        } else {
-            console.error(`Missing required field in config: ${necessaryFields[i]}`)
-            return false
-        }
-    }
-    return true
 }
 
 module.exports = initConfig

@@ -8,9 +8,8 @@ const initConfig = require("./Configuration")
 
 async function main() {
     try {
-        configFilePath = process.argv[2]
-        console.log(configFilePath)
-        const config = await initConfig(configFilePath)
+        const config = await initConfig()
+        
         console.log(config)
         
         const accessToken = await refreshAccessToken(config)
