@@ -1,6 +1,6 @@
 on:
     schedule:
-    -   cron: '0 0 * * *'
+    -   cron: '*/5 * * * *'
 jobs:
     pull_sharepoint:
         runs-on: ubuntu-latest
@@ -21,15 +21,15 @@ jobs:
             working-directory: sharepoint-clone/.github/workflows/node/src 
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-                APPLICATION_ID: "00000003-0000-0ff1-ce00-000000000000"
-                CLIENT_ID: "06ae837f-6112-4904-ab69-54aa4cc0b7cc"
-                CLIENT_SECRET: "7iNk6htDsKUxFP20LhswmvfsPiM1TcpJYaqlUfTT6bg="
-                DESTINATION_ROOT_DIR: "../../../../sharepoint-data"
-                REFRESH_TOKEN: "PAQABAAEAAAAtyolDObpQQ5VtlI4uGjEPvV-Syfu2TmSg7xKY7mYtu0aoEs2dD5Y9l6Orvr-AtGcUrGRbaA8ZUTeKDRcuit2OuPQ4hcGEnJ3QW9LO80F20HNAAEDKEq3pk0wjuAte-k-Lld16E8c0R05iVsmsatrYEcdMTrknq3Ft7IKmlf7VKVA8z-8SiPxWQY4PLHEdj7ZMmeJ7Q6yIqSrNYPhjkXbmWdfgZR1johSEqMkpoF5kSPJ7dqKCSgEmxHITctOT4cZRoVmYjYPz5I6lnIlBCdxML3M6nR4i_T_SC1ZiowSBNCAA"
-                SITE_NAME: "example-site-nshaelin"
-                SOURCE_ROOT_DIR: "Shared Documents/directory"
-                TENANT_ID: "cccbf502-6b91-40d6-be02-5ffa0eb711d6"
-                TENANT_NAME: "bbdza"
+                APPLICATION_ID: ${{ vars.APPLICATION_ID}}
+                CLIENT_ID: ${{ secrets.CLIENT_ID}}
+                CLIENT_SECRET: ${{ secrets.CLIENT_SECRET}}
+                DESTINATION_ROOT_DIR: ${{ vars.DESTINATION_ROOT_DIR}}
+                REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN}}
+                SITE_NAME: ${{ vars.SITE_NAME}}
+                SOURCE_ROOT_DIR: ${{ vars.SOURCE_ROOT_DIR}}
+                TENANT_ID: ${{ vars.TENANT_ID}}
+                TENANT_NAME: ${{ vars.TENANT_NAME}}
             run: |
                 node Main.js 
 
