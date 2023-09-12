@@ -32,7 +32,7 @@ jobs:
                 TENANT_ID: "cccbf502-6b91-40d6-be02-5ffa0eb711d6"
                 TENANT_NAME: "bbdza"
             run: |
-                node Main.js 
+                echo "node Main.js" 
 
         -   name: Commit and Push Changes
             working-directory: sharepoint-clone
@@ -41,6 +41,7 @@ jobs:
             run: |
                 git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
                 git config --global user.name "$GITHUB_ACTOR"
+                echo $GITHUB_ACTOR
                 git add .
-                git commit -m "Update files"
-                git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY main
+                git commit --allow-empty -m "Update files"
+                git push -f https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
