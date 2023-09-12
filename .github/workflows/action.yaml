@@ -4,19 +4,29 @@ on:
         - 'main'
 jobs:
     pull_sharepoint:
-        runs-on: node
+        runs-on: ubuntu-latest
         steps:
         -   name: Checkout this repo
             uses: actions/checkout@v3
+            with:
+                path: sharepoint-clone
+
+        -   name: set up Node
+            uses: actions/setup-node@v3
+
+        -   name: install dependencies
+            working-directory: sharepoint-clone/.github/workflows/node
+            run: npm install
 
         -   name: Pull from Sharepoint
+            working-directory: sharepoint-clone/.github/workflows/node/src 
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
 
                 APP_ID: "00000003-0000-0ff1-ce00-000000000000"
                 CLIENT_ID: "06ae837f-6112-4904-ab69-54aa4cc0b7cc"
                 CLIENT_SECRET: "7iNk6htDsKUxFP20LhswmvfsPiM1TcpJYaqlUfTT6bg="
-                DESTINATION_ROOT_DIR: "./sharepoint-clone"
+                DESTINATION_ROOT_DIR: "sharepoint-clone"
                 REFRESH_TOKEN: "PAQABAAEAAAAtyolDObpQQ5VtlI4uGjEPvV-Syfu2TmSg7xKY7mYtu0aoEs2dD5Y9l6Orvr-AtGcUrGRbaA8ZUTeKDRcuit2OuPQ4hcGEnJ3QW9LO80F20HNAAEDKEq3pk0wjuAte-k-Lld16E8c0R05iVsmsatrYEcdMTrknq3Ft7IKmlf7VKVA8z-8SiPxWQY4PLHEdj7ZMmeJ7Q6yIqSrNYPhjkXbmWdfgZR1johSEqMkpoF5kSPJ7dqKCSgEmxHITctOT4cZRoVmYjYPz5I6lnIlBCdxML3M6nR4i_T_SC1ZiowSBNCAA"
                 SITE_NAME: "example-site-nshaelin"
                 SOURCE_ROOT_DIR: "Shared Documents/directory"
@@ -24,6 +34,7 @@ jobs:
                 TENANT_NAME: "bbdza"
             run: |
                 node Main.js 
+
         -   name: Push to repo
             uses: ad-m/github-push-action@main
             with:
