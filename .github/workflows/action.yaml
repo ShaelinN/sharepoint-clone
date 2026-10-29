@@ -1,46 +1,46 @@
-on:
-    schedule:
-    -   cron: '0 0 * * *'
-jobs:
-    pull_sharepoint:
-        runs-on: ubuntu-latest
-        steps:
-        -   name: Checkout this repo
-            uses: actions/checkout@v3
-            with:
-                path: sharepoint-clone
+# on:
+#     schedule:
+#     -   cron: '0 0 * * *'
+# jobs:
+#     pull_sharepoint:
+#         runs-on: ubuntu-latest
+#         steps:
+#         -   name: Checkout this repo
+#             uses: actions/checkout@v3
+#             with:
+#                 path: sharepoint-clone
 
-        -   name: set up Node
-            uses: actions/setup-node@v3
+#         -   name: set up Node
+#             uses: actions/setup-node@v3
 
-        -   name: install dependencies
-            working-directory: sharepoint-clone/.github/workflows/node
-            run: npm install
+#         -   name: install dependencies
+#             working-directory: sharepoint-clone/.github/workflows/node
+#             run: npm install
 
-        -   name: Pull from Sharepoint
-            working-directory: sharepoint-clone/.github/workflows/node/src 
-            env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-                APPLICATION_ID: ${{ vars.APPLICATION_ID}}
-                CLIENT_ID: ${{ secrets.CLIENT_ID}}
-                CLIENT_SECRET: ${{ secrets.CLIENT_SECRET}}
-                DESTINATION_ROOT_DIR: ${{ vars.DESTINATION_ROOT_DIR}}
-                REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN}}
-                SITE_NAME: ${{ vars.SITE_NAME}}
-                SOURCE_ROOT_DIR: ${{ vars.SOURCE_ROOT_DIR}}
-                TENANT_ID: ${{ vars.TENANT_ID}}
-                TENANT_NAME: ${{ vars.TENANT_NAME}}
-            run: |
-                node Main.js 
+#         -   name: Pull from Sharepoint
+#             working-directory: sharepoint-clone/.github/workflows/node/src 
+#             env:
+#                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+#                 APPLICATION_ID: ${{ vars.APPLICATION_ID}}
+#                 CLIENT_ID: ${{ secrets.CLIENT_ID}}
+#                 CLIENT_SECRET: ${{ secrets.CLIENT_SECRET}}
+#                 DESTINATION_ROOT_DIR: ${{ vars.DESTINATION_ROOT_DIR}}
+#                 REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN}}
+#                 SITE_NAME: ${{ vars.SITE_NAME}}
+#                 SOURCE_ROOT_DIR: ${{ vars.SOURCE_ROOT_DIR}}
+#                 TENANT_ID: ${{ vars.TENANT_ID}}
+#                 TENANT_NAME: ${{ vars.TENANT_NAME}}
+#             run: |
+#                 node Main.js 
 
-        -   name: Commit and Push Changes
-            working-directory: sharepoint-clone
-            env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-            run: |
-                git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-                git config --global user.name "$GITHUB_ACTOR"
-                echo $GITHUB_ACTOR
-                git add .
-                git commit --allow-empty -m "Update files"
-                git push -f https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
+#         -   name: Commit and Push Changes
+#             working-directory: sharepoint-clone
+#             env:
+#                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+#             run: |
+#                 git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+#                 git config --global user.name "$GITHUB_ACTOR"
+#                 echo $GITHUB_ACTOR
+#                 git add .
+#                 git commit --allow-empty -m "Update files"
+#                 git push -f https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
